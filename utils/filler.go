@@ -27,7 +27,7 @@ func Fill(driver selenium.WebDriver, isTab bool, config Config, cc CC, link stri
 			return err
 		}
 
-		defer driver.SwitchWindow("")
+		//defer driver.SwitchWindow("")
 
 		err = driver.SwitchWindow(windows[len(windows)-1])
 		if err != nil {
@@ -156,12 +156,17 @@ func Fill(driver selenium.WebDriver, isTab bool, config Config, cc CC, link stri
 			if err != nil {
 				return err
 			}
-			ccCVV := strings.Split(fmt.Sprint(cc.CVV), "")
-			for _, c := range ccCVV {
-				err = input.SendKeys(c)
-				if err != nil {
-					return err
-				}
+			//ccCVV := strings.Split(fmt.Sprint(cc.CVV), "")
+			//for _, c := range ccCVV {
+			//	err = input.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
+
+			err = input.SendKeys(fmt.Sprint(cc.CVV))
+			if err != nil {
+				return err
 			}
 		}
 
@@ -182,18 +187,23 @@ func Fill(driver selenium.WebDriver, isTab bool, config Config, cc CC, link stri
 			if err != nil {
 				return err
 			}
+			//err = input.SendKeys(fmt.Sprint(cc.NAME))
+			//if err != nil {
+			//	return err
+			//}
+
 			ccName := strings.Split(fmt.Sprint(cc.NAME), "")
 			err = input.Clear()
 			if err != nil {
 				return err
 			}
-
 			for _, c := range ccName {
 				err = input.SendKeys(c)
 				if err != nil {
 					return err
 				}
 			}
+
 		}
 
 		err = driver.SwitchFrame(nil)
@@ -223,77 +233,125 @@ func Fill(driver selenium.WebDriver, isTab bool, config Config, cc CC, link stri
 
 		switch name {
 		case "firstName":
-			firstName := strings.Split(fmt.Sprint(config.User.FirstName), "")
 			err = p.Clear()
 			if err != nil {
 				return err
 			}
-			for _, c := range firstName {
-				err = p.SendKeys(c)
-				if err != nil {
-					return err
-				}
+			err = p.SendKeys(fmt.Sprint(config.User.FirstName))
+			if err != nil {
+				return err
 			}
+			//firstName := strings.Split(fmt.Sprint(config.User.FirstName), "")
+			//err = p.Clear()
+			//if err != nil {
+			//	return err
+			//}
+			//for _, c := range firstName {
+			//	err = p.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
 		case "lastName":
-			lastName := strings.Split(fmt.Sprint(config.User.LastName), "")
 			err = p.Clear()
 			if err != nil {
 				return err
 			}
-			for _, c := range lastName {
-				err = p.SendKeys(c)
-				if err != nil {
-					return err
-				}
+			err = p.SendKeys(fmt.Sprint(config.User.LastName))
+			if err != nil {
+				return err
 			}
+			//lastName := strings.Split(fmt.Sprint(config.User.LastName), "")
+			//err = p.Clear()
+			//if err != nil {
+			//	return err
+			//}
+			//for _, c := range lastName {
+			//	err = p.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
 		case "email":
-			email := strings.Split(fmt.Sprint(config.User.Email), "")
 			err = p.Clear()
 			if err != nil {
 				return err
 			}
-			for _, c := range email {
-				err = p.SendKeys(c)
-				if err != nil {
-					return err
-				}
+			err = p.SendKeys(fmt.Sprint(config.User.Email))
+			if err != nil {
+				return err
 			}
+			//email := strings.Split(fmt.Sprint(config.User.Email), "")
+			//err = p.Clear()
+			//if err != nil {
+			//	return err
+			//}
+			//for _, c := range email {
+			//	err = p.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
 		case "address1":
-			address := strings.Split(fmt.Sprint(config.User.Address), "")
 			err = p.Clear()
 			if err != nil {
 				return err
 			}
-			for _, c := range address {
-				err = p.SendKeys(c)
-				if err != nil {
-					return err
-				}
+			err = p.SendKeys(fmt.Sprint(config.User.Address))
+			if err != nil {
+				return err
 			}
+			//address := strings.Split(fmt.Sprint(config.User.Address), "")
+			//err = p.Clear()
+			//if err != nil {
+			//	return err
+			//}
+			//for _, c := range address {
+			//	err = p.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
 		case "company":
-			company := strings.Split(fmt.Sprint(config.User.Company), "")
 			err = p.Clear()
 			if err != nil {
 				return err
 			}
-			for _, c := range company {
-				err = p.SendKeys(c)
-				if err != nil {
-					return err
-				}
+			err = p.SendKeys(fmt.Sprint(config.User.Company))
+			if err != nil {
+				return err
 			}
+			//company := strings.Split(fmt.Sprint(config.User.Company), "")
+			//err = p.Clear()
+			//if err != nil {
+			//	return err
+			//}
+			//for _, c := range company {
+			//	err = p.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
 		case "postalCode":
-			postcode := strings.Split(fmt.Sprint(config.User.PostCode), "")
 			err = p.Clear()
 			if err != nil {
 				return err
 			}
-			for _, c := range postcode {
-				err = p.SendKeys(c)
-				if err != nil {
-					return err
-				}
+			err = p.SendKeys(fmt.Sprint(config.User.PostCode))
+			if err != nil {
+				return err
 			}
+			//postcode := strings.Split(fmt.Sprint(config.User.PostCode), "")
+			//err = p.Clear()
+			//if err != nil {
+			//	return err
+			//}
+			//for _, c := range postcode {
+			//	err = p.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
 		case "phone":
 			phone := strings.Split(config.User.PhoneCode+config.User.PhoneNumber, "")
 			err = p.Clear()
@@ -307,17 +365,25 @@ func Fill(driver selenium.WebDriver, isTab bool, config Config, cc CC, link stri
 				}
 			}
 		case "city":
-			city := strings.Split(fmt.Sprint(config.User.City), "")
 			err = p.Clear()
 			if err != nil {
 				return err
 			}
-			for _, c := range city {
-				err = p.SendKeys(c)
-				if err != nil {
-					return err
-				}
+			err = p.SendKeys(fmt.Sprint(config.User.City))
+			if err != nil {
+				return err
 			}
+			//city := strings.Split(fmt.Sprint(config.User.City), "")
+			//err = p.Clear()
+			//if err != nil {
+			//	return err
+			//}
+			//for _, c := range city {
+			//	err = p.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
 		default:
 			continue
 		}

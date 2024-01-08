@@ -55,17 +55,30 @@ var streamCmd = &cobra.Command{
 
 			err = driver.ResizeWindow(window, 800, 600)
 			cobra.CheckErr(err)
+
 			wg.Add(1)
-			go func(link string) {
+			go func(link string, i int) {
+				tab := false
+				now := false
+				rip := i
+
 				wd, err := utils.Window(driver, conf, link)
 				if err != nil {
-					log.Printf("error: %s \nLink : %s", err.Error(), link)
+					log.Printf("error: %s \n", err.Error())
 				}
 
-				tab := false
 				for cc := range telegram.CCChannel {
-					if tab {
-						err = utils.Fill(driver, true, conf, cc, link)
+
+					lk := link
+					if rip <= len(links) {
+						lk = links[rip]
+						rip++
+					} else {
+						rip = 0
+					}
+
+					if now {
+						err = utils.Fill(driver, tab, conf, cc, lk)
 						if err != nil {
 							log.Printf("error: %s \n", err.Error())
 						}
@@ -74,12 +87,13 @@ var streamCmd = &cobra.Command{
 						if err != nil {
 							log.Printf("error: %s \n", err.Error())
 						}
-						tab = true
+						now = true
 					}
+					tab = true
 				}
 
 				wg.Done()
-			}(link)
+			}(link, i)
 		}
 		wg.Wait()
 	},
@@ -87,5 +101,4 @@ var streamCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(streamCmd)
-
 }

@@ -68,77 +68,125 @@ func Window(driver selenium.WebDriver, config Config, link string) (selenium.Web
 
 		switch name {
 		case "firstName":
-			firstName := strings.Split(fmt.Sprint(config.User.FirstName), "")
 			err = p.Clear()
 			if err != nil {
 				return nil, err
 			}
-			for _, c := range firstName {
-				err = p.SendKeys(c)
-				if err != nil {
-					return nil, err
-				}
+			err = p.SendKeys(fmt.Sprint(config.User.FirstName))
+			if err != nil {
+				return nil, err
 			}
+			//firstName := strings.Split(fmt.Sprint(config.User.FirstName), "")
+			//err = p.Clear()
+			//if err != nil {
+			//	return err
+			//}
+			//for _, c := range firstName {
+			//	err = p.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
 		case "lastName":
-			lastName := strings.Split(fmt.Sprint(config.User.LastName), "")
 			err = p.Clear()
 			if err != nil {
 				return nil, err
 			}
-			for _, c := range lastName {
-				err = p.SendKeys(c)
-				if err != nil {
-					return nil, err
-				}
+			err = p.SendKeys(fmt.Sprint(config.User.LastName))
+			if err != nil {
+				return nil, err
 			}
+			//lastName := strings.Split(fmt.Sprint(config.User.LastName), "")
+			//err = p.Clear()
+			//if err != nil {
+			//	return err
+			//}
+			//for _, c := range lastName {
+			//	err = p.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
 		case "email":
-			email := strings.Split(fmt.Sprint(config.User.Email), "")
 			err = p.Clear()
 			if err != nil {
 				return nil, err
 			}
-			for _, c := range email {
-				err = p.SendKeys(c)
-				if err != nil {
-					return nil, err
-				}
+			err = p.SendKeys(fmt.Sprint(config.User.Email))
+			if err != nil {
+				return nil, err
 			}
+			//email := strings.Split(fmt.Sprint(config.User.Email), "")
+			//err = p.Clear()
+			//if err != nil {
+			//	return err
+			//}
+			//for _, c := range email {
+			//	err = p.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
 		case "address1":
-			address := strings.Split(fmt.Sprint(config.User.Address), "")
 			err = p.Clear()
 			if err != nil {
 				return nil, err
 			}
-			for _, c := range address {
-				err = p.SendKeys(c)
-				if err != nil {
-					return nil, err
-				}
+			err = p.SendKeys(fmt.Sprint(config.User.Address))
+			if err != nil {
+				return nil, err
 			}
+			//address := strings.Split(fmt.Sprint(config.User.Address), "")
+			//err = p.Clear()
+			//if err != nil {
+			//	return err
+			//}
+			//for _, c := range address {
+			//	err = p.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
 		case "company":
-			company := strings.Split(fmt.Sprint(config.User.Company), "")
 			err = p.Clear()
 			if err != nil {
 				return nil, err
 			}
-			for _, c := range company {
-				err = p.SendKeys(c)
-				if err != nil {
-					return nil, err
-				}
+			err = p.SendKeys(fmt.Sprint(config.User.Company))
+			if err != nil {
+				return nil, err
 			}
+			//company := strings.Split(fmt.Sprint(config.User.Company), "")
+			//err = p.Clear()
+			//if err != nil {
+			//	return err
+			//}
+			//for _, c := range company {
+			//	err = p.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
 		case "postalCode":
-			postcode := strings.Split(fmt.Sprint(config.User.PostCode), "")
 			err = p.Clear()
 			if err != nil {
 				return nil, err
 			}
-			for _, c := range postcode {
-				err = p.SendKeys(c)
-				if err != nil {
-					return nil, err
-				}
+			err = p.SendKeys(fmt.Sprint(config.User.PostCode))
+			if err != nil {
+				return nil, err
 			}
+			//postcode := strings.Split(fmt.Sprint(config.User.PostCode), "")
+			//err = p.Clear()
+			//if err != nil {
+			//	return err
+			//}
+			//for _, c := range postcode {
+			//	err = p.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
 		case "phone":
 			phone := strings.Split(config.User.PhoneCode+config.User.PhoneNumber, "")
 			err = p.Clear()
@@ -152,17 +200,25 @@ func Window(driver selenium.WebDriver, config Config, link string) (selenium.Web
 				}
 			}
 		case "city":
-			city := strings.Split(fmt.Sprint(config.User.City), "")
 			err = p.Clear()
 			if err != nil {
 				return nil, err
 			}
-			for _, c := range city {
-				err = p.SendKeys(c)
-				if err != nil {
-					return nil, err
-				}
+			err = p.SendKeys(fmt.Sprint(config.User.City))
+			if err != nil {
+				return nil, err
 			}
+			//city := strings.Split(fmt.Sprint(config.User.City), "")
+			//err = p.Clear()
+			//if err != nil {
+			//	return err
+			//}
+			//for _, c := range city {
+			//	err = p.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
 		default:
 			continue
 		}
@@ -199,6 +255,13 @@ func Stream(driver selenium.WebDriver, config Config, cc CC) error {
 				return err
 			}
 
+			//iframePageSource, err := driver.PageSource()
+			//if err != nil {
+			//	return err
+			//}
+			//
+			//_ = os.WriteFile("number.html", []byte(iframePageSource), 0644)
+
 			input, err := driver.FindElement(selenium.ByCSSSelector, "input.input-placeholder-color--lvl-22")
 			if err != nil {
 				return err
@@ -218,6 +281,13 @@ func Stream(driver selenium.WebDriver, config Config, cc CC) error {
 			if err != nil {
 				return err
 			}
+
+			//iframePageSource, err := driver.PageSource()
+			//if err != nil {
+			//	return err
+			//}
+			//
+			//_ = os.WriteFile("expiry.html", []byte(iframePageSource), 0644)
 
 			input, err := driver.FindElement(selenium.ByCSSSelector, "input.input-placeholder-color--lvl-22")
 			if err != nil {
@@ -245,16 +315,28 @@ func Stream(driver selenium.WebDriver, config Config, cc CC) error {
 				return err
 			}
 
+			//iframePageSource, err := driver.PageSource()
+			//if err != nil {
+			//	return err
+			//}
+			//
+			//_ = os.WriteFile("verify.html", []byte(iframePageSource), 0644)
+
 			input, err := driver.FindElement(selenium.ByCSSSelector, "input.input-placeholder-color--lvl-22")
 			if err != nil {
 				return err
 			}
-			ccCVV := strings.Split(fmt.Sprint(cc.CVV), "")
-			for _, c := range ccCVV {
-				err = input.SendKeys(c)
-				if err != nil {
-					return err
-				}
+			//ccCVV := strings.Split(fmt.Sprint(cc.CVV), "")
+			//for _, c := range ccCVV {
+			//	err = input.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
+
+			err = input.SendKeys(fmt.Sprint(cc.CVV))
+			if err != nil {
+				return err
 			}
 		}
 
@@ -264,22 +346,34 @@ func Stream(driver selenium.WebDriver, config Config, cc CC) error {
 				return err
 			}
 
+			//iframePageSource, err := driver.PageSource()
+			//if err != nil {
+			//	return err
+			//}
+			//
+			//_ = os.WriteFile("name.html", []byte(iframePageSource), 0644)
+
 			input, err := driver.FindElement(selenium.ByCSSSelector, "input.input-placeholder-color--lvl-22")
 			if err != nil {
 				return err
 			}
-			ccName := strings.Split(fmt.Sprint(cc.NAME), "")
-			err = input.Clear()
+			err = input.SendKeys(fmt.Sprint(cc.NAME))
 			if err != nil {
 				return err
 			}
 
-			for _, c := range ccName {
-				err = input.SendKeys(c)
-				if err != nil {
-					return err
-				}
-			}
+			//ccName := strings.Split(fmt.Sprint(cc.NAME), "")
+			//err = input.Clear()
+			//if err != nil {
+			//	return err
+			//}
+			//for _, c := range ccName {
+			//	err = input.SendKeys(c)
+			//	if err != nil {
+			//		return err
+			//	}
+			//}
+
 		}
 
 		err = driver.SwitchFrame(nil)

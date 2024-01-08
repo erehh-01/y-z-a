@@ -52,7 +52,7 @@ type CC struct {
 	YEAR  uint   `yaml:"year"`
 	MONTH uint   `yaml:"month"`
 	NAME  string `yaml:"name"`
-	CVV   uint   `yaml:"cvv"`
+	CVV   string `yaml:"cvv"`
 }
 
 type Telegram struct {
@@ -199,7 +199,7 @@ func createDefaultCCFile(CCFilePath string) error {
 			YEAR:  2025,
 			MONTH: 12,
 			NAME:  "Test Test",
-			CVV:   123,
+			CVV:   "123",
 		},
 	}
 
