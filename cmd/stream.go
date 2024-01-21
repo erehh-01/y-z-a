@@ -18,25 +18,25 @@ import (
 // streamCmd represents the stream command
 var streamCmd = &cobra.Command{
 	Use:   "stream",
-	Short: "filter the cc from telgram msg.",
-	Long:  "listener for incoming telegram messages and filter the cc from them.",
+	Short: "Filter the cc from telgram msg.",
+	Long:  "Listener for incoming telegram messages and filter the cc from them.",
 	Run: func(cmd *cobra.Command, args []string) {
 		var err error
 
-		err = telegram.Start()
+		conf, err := utils.LoadConfig()
+		cobra.CheckErr(err)
+
+		err = telegram.Start(conf)
 		cobra.CheckErr(err)
 
 		if telegram.TDlibClient == nil {
 			cobra.CheckErr(errors.New("failed to start telegram client"))
 		}
 
-		conf, err := utils.LoadConfig()
-		cobra.CheckErr(err)
-
 		links, err := utils.LoadLinks()
 		cobra.CheckErr(err)
 
-		go telegram.Stream()
+		go telegram.Stream(conf)
 
 		wg := sync.WaitGroup{}
 		for i, link := range links {

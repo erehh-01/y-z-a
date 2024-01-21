@@ -48,7 +48,7 @@ type Browser struct {
 }
 
 type CC struct {
-	CCNUM int    `yaml:"number"`
+	CCNUM string    `yaml:"number"`
 	YEAR  uint   `yaml:"year"`
 	MONTH uint   `yaml:"month"`
 	NAME  string `yaml:"name"`
@@ -56,8 +56,9 @@ type CC struct {
 }
 
 type Telegram struct {
-	AppID   int32  `yaml:"appID"`
-	AppHash string `yaml:"appHash"`
+	AppID    int32  `yaml:"appID"`
+	AppHash  string `yaml:"appHash"`
+	Channels []int64  `yaml:"channels"`
 }
 
 func StartConfig() error {
@@ -170,7 +171,7 @@ func createDefaultConfigFile(configFilePath string) error {
 			UserAgent:    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
 			Proxy:        "http://localhost",
 			Port:         80,
-			SkipCaptcha:  true,
+			SkipCaptcha:  false,
 			MaxWindows:   2,
 			MaxTabs:      10,
 			LoadTime:     15,
@@ -178,6 +179,9 @@ func createDefaultConfigFile(configFilePath string) error {
 		Telegram: Telegram{
 			AppID:   0,
 			AppHash: "",
+			Channels: []int64{
+				-1001397199427,
+			},
 		},
 	}
 
@@ -195,7 +199,7 @@ func createDefaultConfigFile(configFilePath string) error {
 func createDefaultCCFile(CCFilePath string) error {
 	defaultCC := []CC{
 		{
-			CCNUM: 5110200003199389,
+			CCNUM: "5110200003199389",
 			YEAR:  2025,
 			MONTH: 12,
 			NAME:  "Test Test",

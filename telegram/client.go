@@ -4,6 +4,7 @@ import (
 	"errors"
 	"log"
 	"path/filepath"
+	"slices"
 
 	"github.com/dj-yacine-flutter/y-z-a/utils"
 	"github.com/zelenin/go-tdlib/client"
@@ -14,13 +15,8 @@ var (
 	CCChannel   = make(chan utils.CC)
 )
 
-func Start() error {
+func Start(conf utils.Config) error {
 	var err error
-
-	conf, err := utils.LoadConfig()
-	if err != nil {
-		return err
-	}
 
 	if conf.Telegram.AppID <= 0 {
 		return errors.New("to use telegram put the required AppID in the config file")
@@ -79,7 +75,7 @@ func Close() {
 	}
 }
 
-func Stream() {
+func Stream(conf utils.Config) {
 	listener := TDlibClient.GetListener()
 	defer listener.Close()
 
@@ -90,9 +86,9 @@ func Stream() {
 
 			switch content := message.Content.(type) {
 			case *client.MessageText:
-				//	fmt.Println("Message ID:", message.Id)
-				//	fmt.Println("Chat ID:", message.ChatId)
-				if message.ChatId == -750385682 {
+				//fmt.Println("Message ID:", message.Id)
+				//fmt.Println("Chat ID:", message.ChatId)
+				if slices.Contains(conf.Telegram.Channels, message.ChatId) {
 					//	fmt.Println("Text:", content.Text.Text)
 					cc, err := utils.ParseCC(content.Text.Text)
 					if err != nil {

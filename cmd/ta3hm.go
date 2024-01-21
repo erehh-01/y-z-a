@@ -16,8 +16,8 @@ import (
 // ta3hmCmd represents the ta3hm command
 var ta3hmCmd = &cobra.Command{
 	Use:   "ta3hm",
-	Short: "use this command to test card in list of websites all in the same time",
-	Long:  "use this command to test card in list of websites all in the same time",
+	Short: "Use this command to test card in list of websites all in the same time.",
+	Long:  "Use this command to test card in list of websites all in the same time.",
 	Run: func(cmd *cobra.Command, args []string) {
 		headless, err := cmd.Flags().GetBool("headless")
 		cobra.CheckErr(err)

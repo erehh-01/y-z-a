@@ -15,8 +15,8 @@ import (
 // listCmd represents the list command
 var listCmd = &cobra.Command{
 	Use:   "list",
-	Short: "use this command to test card in list of websites one by one",
-	Long:  "use this command to test card in list of websites one by one",
+	Short: "Use this command to test card in list of websites one by one.",
+	Long:  "Use this command to test card in list of websites one by one.",
 	Run: func(cmd *cobra.Command, args []string) {
 		headless, err := cmd.Flags().GetBool("headless")
 		cobra.CheckErr(err)

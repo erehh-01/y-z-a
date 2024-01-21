@@ -32,11 +32,8 @@ func ParseCC(text string) (CC, error) {
 		return cc, errors.New("no cc number found in text")
 	}
 
-	cc.CCNUM, err = strconv.Atoi(numF[0])
-	if err != nil {
-		return cc, errors.New("no cc number found")
-	}
-
+	cc.CCNUM = numF[0]
+	
 	if len(cvvF) <= 0 {
 		return CC{}, errors.New("no cc cvv found in text")
 	}
