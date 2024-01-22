@@ -51,13 +51,13 @@ type CC struct {
 	YEAR  uint   `json:"year"`
 	MONTH uint   `json:"month"`
 	NAME  string `json:"name"`
-	CVV   uint   `json:"cvv"`
+	CVV   string `json:"cvv"`
 }
 
 type Telegram struct {
-	AppID   int32  `json:"appID"`
-	AppHash string `json:"appHash"`
-	
+	AppID    int32   `json:"appID"`
+	AppHash  string  `json:"appHash"`
+	Channels []int64 `json:"channels"`
 }
 
 func StartConfig() error {
@@ -182,7 +182,7 @@ func createDefaultConfigFile(configFilePath string) error {
 			UserAgent:    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
 			Proxy:        "http://localhost",
 			Port:         80,
-			SkipCaptcha:  true,
+			SkipCaptcha:  false,
 			MaxWindows:   2,
 			MaxTabs:      10,
 			LoadTime:     15,
@@ -190,6 +190,9 @@ func createDefaultConfigFile(configFilePath string) error {
 		Telegram: Telegram{
 			AppID:   0,
 			AppHash: "",
+			Channels: []int64{
+				-1001397199427,
+			},
 		},
 	}
 
@@ -211,7 +214,7 @@ func createDefaultCCFile(CCFilePath string) error {
 			YEAR:  2025,
 			MONTH: 12,
 			NAME:  "Test Test",
-			CVV:   123,
+			CVV:   "123",
 		},
 	}
 
