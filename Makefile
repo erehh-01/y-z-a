@@ -8,5 +8,6 @@ build:
 	-gcflags="-S -m" \
 	-trimpath -mod=readonly -buildmode=pie \
 	-a -installsuffix cgo -o y-z-a .
-	
+
+
 .PHONY: build

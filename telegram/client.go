@@ -96,13 +96,13 @@ func Stream() {
 				if message.ChatId == -750385682 {
 					fmt.Println("Text:", content.Text.Text)
 					cc := utils.CC{
-						CCNUM: 5110200003199389,
+						CCNUM: "5110200003199389",
 						YEAR:  2025,
 						MONTH: 12,
 						NAME:  "test card name",
 						CVV:   123,
 					}
-					CCChannel <- cc					
+					CCChannel <- cc
 				}
 			}
 		}

@@ -9,7 +9,6 @@ import (
 	"strings"
 
 	"github.com/spf13/viper"
-	"gopkg.in/yaml.v3"
 )
 
 var (
@@ -18,46 +17,47 @@ var (
 )
 
 type Config struct {
-	User     User     `yaml:"user"`
-	Browser  Browser  `yaml:"browser"`
-	Telegram Telegram `yaml:"telegram"`
+	User     User     `json:"user"`
+	Browser  Browser  `json:"browser"`
+	Telegram Telegram `json:"telegram"`
 }
 
 type User struct {
-	Email       string `yaml:"email"`
-	Address     string `yaml:"address"`
-	FirstName   string `yaml:"firstName"`
-	LastName    string `yaml:"lastName"`
-	Company     string `yaml:"company"`
-	PostCode    int    `yaml:"postCode"`
-	City        string `yaml:"city"`
-	PhoneCode   string `yaml:"phoneCode"`
-	PhoneNumber string `yaml:"phoneNumber"`
+	Email       string `json:"email"`
+	Address     string `json:"address"`
+	FirstName   string `json:"firstName"`
+	LastName    string `json:"lastName"`
+	Company     string `json:"company"`
+	PostCode    int    `json:"postCode"`
+	City        string `json:"city"`
+	PhoneCode   string `json:"phoneCode"`
+	PhoneNumber string `json:"phoneNumber"`
 }
 
 type Browser struct {
-	ChromeDriver string `yaml:"chromeDriver"`
-	ChromePath   string `yaml:"chromePath"`
-	UserAgent    string `yaml:"userAgent"`
-	Proxy        string `yaml:"proxy"`
-	Port         int    `yaml:"port"`
-	SkipCaptcha  bool   `yaml:"skipCaptcha"`
-	MaxWindows   int    `yaml:"maxWindows"`
-	MaxTabs      int    `yaml:"maxTabs"`
-	LoadTime     int    `yaml:"loadTime"`
+	ChromeDriver string `json:"chromeDriver"`
+	ChromePath   string `json:"chromePath"`
+	UserAgent    string `json:"userAgent"`
+	Proxy        string `json:"proxy"`
+	Port         int    `json:"port"`
+	SkipCaptcha  bool   `json:"skipCaptcha"`
+	MaxWindows   int    `json:"maxWindows"`
+	MaxTabs      int    `json:"maxTabs"`
+	LoadTime     int    `json:"loadTime"`
 }
 
 type CC struct {
-	CCNUM int    `yaml:"number"`
-	YEAR  uint   `yaml:"year"`
-	MONTH uint   `yaml:"month"`
-	NAME  string `yaml:"name"`
-	CVV   uint   `yaml:"cvv"`
+	CCNUM string `json:"number"`
+	YEAR  uint   `json:"year"`
+	MONTH uint   `json:"month"`
+	NAME  string `json:"name"`
+	CVV   uint   `json:"cvv"`
 }
 
 type Telegram struct {
-	AppID   int32  `yaml:"appID"`
-	AppHash string `yaml:"appHash"`
+	AppID   int32  `json:"appID"`
+	AppHash string `json:"appHash"`
+	
 }
 
 func StartConfig() error {
@@ -78,8 +78,7 @@ func StartConfig() error {
 	}
 
 	// Set config file path
-	configFile := filepath.Join(configPath, "y-z-a.yaml")
-
+	configFile := filepath.Join(configPath, "y-z-a.json")
 	// Ensure config file exists
 	if _, err := os.Stat(configFile); os.IsNotExist(err) {
 		fmt.Println("Config file not found, created:", configFile)
@@ -132,8 +131,8 @@ func StartConfig() error {
 	}
 
 	// Load configuration
-	viper.AddConfigPath(configPath)
-	viper.SetConfigType("yaml")
+	viper.AddConfigPath(filepath.Clean(configPath))
+	viper.SetConfigType("json")
 	viper.SetConfigName("y-z-a")
 
 	// If a config file is found, read it in.
@@ -146,8 +145,21 @@ func StartConfig() error {
 
 func LoadConfig() (Config, error) {
 	config := Config{}
-	err := viper.Unmarshal(&config)
-	return config, err
+	configPath := viper.ConfigFileUsed()
+	if configPath == "" {
+		return config, fmt.Errorf("there is no config file")
+	}
+
+	configBytes, err := os.ReadFile(configPath)
+	if err != nil {
+		return config, fmt.Errorf("config file is empty")
+	}
+
+	if err = json.Unmarshal(configBytes, &config); err != nil {
+		return config, fmt.Errorf("error in config file")
+	}
+
+	return config, nil
 }
 
 // createDefaultConfigFile creates a new config file with default values
@@ -181,21 +193,21 @@ func createDefaultConfigFile(configFilePath string) error {
 		},
 	}
 
-	// Marshal the default configuration to YAML
-	yamlData, err := yaml.Marshal(&defaultConfig)
+	// Marshal the default configuration to json
+	jsonData, err := json.Marshal(&defaultConfig)
 	if err != nil {
 		return err
 	}
 
-	// Create the config file and write the YAML data
-	return os.WriteFile(configFilePath, yamlData, 0644)
+	// Create the config file and write the json data
+	return os.WriteFile(configFilePath, jsonData, 0644)
 }
 
 // createDefaultCCFile creates a new config file with default values
 func createDefaultCCFile(CCFilePath string) error {
 	defaultCC := []CC{
 		{
-			CCNUM: 5110200003199389,
+			CCNUM: "5110200003199389",
 			YEAR:  2025,
 			MONTH: 12,
 			NAME:  "Test Test",

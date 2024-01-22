@@ -26,10 +26,9 @@ func Chrome(headless bool) (selenium.WebDriver, error) {
 	}
 
 	caps := selenium.Capabilities{
-		"browserName":    "chrome",
-		"browserVersion": "119.0",
-		"se:noVncPort":   7900,
-		"se:vncEnabled":  true,
+		"browserName":   "chrome",
+		"se:noVncPort":  7900,
+		"se:vncEnabled": true,
 	}
 
 	chromeCaps := chrome.Capabilities{
@@ -60,7 +59,7 @@ func Chrome(headless bool) (selenium.WebDriver, error) {
 			"--disable-save-password-bubble",
 			"--disable-domain-reliability",
 			"--no-pings",
-			//"--in-process-gpu",
+			"--enable-chrome-browser-cloud-management",
 			"--disable-default-apps",
 			"--disable-hang-monitor",
 			"--disable-popup-blocking",
