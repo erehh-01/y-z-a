@@ -104,15 +104,24 @@ func Chrome(headless bool) (selenium.WebDriver, error) {
 
 	service, err = selenium.NewChromeDriverService(conf.Browser.ChromeDriver, 4444)
 	if err != nil {
-		service.Stop()
+		if service != nil {
+			service.Stop()
+		}
+
 		return nil, err
 	}
+	defer service.Stop()
 
 	driver, err = selenium.NewRemote(caps, "")
 	if err != nil {
-		driver.Close()
+		if driver != nil {
+			driver.Close()
+		}
+
 		return nil, err
 	}
+
+	defer driver.Close()
 
 	return driver, nil
 }
