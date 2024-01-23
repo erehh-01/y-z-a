@@ -35,6 +35,8 @@ func Chrome(headless bool) (selenium.WebDriver, error) {
 		Path: conf.Browser.ChromePath,
 		Args: []string{
 			"--silent",
+			"--use-vulkan",
+			"--enable-features=Vulkan",
 			"--ignore-certificate-errors",
 			"--disk-cache-size=1",
 			"--media-cache-size=1",
