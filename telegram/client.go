@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"errors"
+	"fmt"
 	"log"
 	"path/filepath"
 	"slices"
@@ -30,8 +31,8 @@ func Start(conf utils.Config) error {
 	go client.CliInteractor(authorizer)
 
 	var (
-		apiId   int32 = 11012090
-		apiHash       = "5fa11a0398b42a30a6a8d124df5df129"
+		apiId   int32 = conf.Telegram.AppID
+		apiHash       = conf.Telegram.AppHash
 	)
 
 	authorizer.TdlibParameters <- &client.SetTdlibParametersRequest{
@@ -86,10 +87,10 @@ func Stream(conf utils.Config) {
 
 			switch content := message.Content.(type) {
 			case *client.MessageText:
-				//fmt.Println("Message ID:", message.Id)
-				//fmt.Println("Chat ID:", message.ChatId)
+				fmt.Println("Message ID:", message.Id)
+				fmt.Println("Chat ID:", message.ChatId)
 				if slices.Contains(conf.Telegram.Channels, message.ChatId) {
-					//	fmt.Println("Text:", content.Text.Text)
+					fmt.Println("Text:", content.Text.Text)
 					cc, err := utils.ParseCC(content.Text.Text)
 					if err != nil {
 						continue
