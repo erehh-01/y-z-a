@@ -66,7 +66,7 @@ func Fill(driver selenium.WebDriver, isTab bool, config Config, cc CC, link stri
 		return err
 	}
 
-	time.Sleep(100 * time.Millisecond)
+	time.Sleep(1500 * time.Millisecond)
 
 	iframes, err := driver.FindElements(selenium.ByCSSSelector, "iframe.card-fields-iframe")
 	if err != nil {
