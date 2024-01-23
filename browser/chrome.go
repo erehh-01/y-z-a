@@ -110,7 +110,6 @@ func Chrome(headless bool) (selenium.WebDriver, error) {
 
 		return nil, err
 	}
-	defer service.Stop()
 
 	driver, err = selenium.NewRemote(caps, "")
 	if err != nil {
@@ -120,8 +119,6 @@ func Chrome(headless bool) (selenium.WebDriver, error) {
 
 		return nil, err
 	}
-
-	defer driver.Close()
 
 	return driver, nil
 }
