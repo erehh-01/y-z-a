@@ -21,7 +21,6 @@ export GOOS=linux
 
 go build -v \
     -ldflags "-w -s" \
-    -tags netgo \
     -gcflags="-S -m" \
     -trimpath -mod=readonly \
     -buildmode=pie -a -installsuffix cgo \
