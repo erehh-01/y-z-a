@@ -266,7 +266,7 @@ func Stream(driver selenium.WebDriver, config Config, cc CC) error {
 			if err != nil {
 				return err
 			}
-			
+
 			ccNum := strings.Split(fmt.Sprint(cc.CCNUM), "")
 			for _, c := range ccNum {
 				err = input.SendKeys(c)

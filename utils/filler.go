@@ -394,5 +394,19 @@ func Fill(driver selenium.WebDriver, isTab bool, config Config, cc CC, link stri
 		return err
 	}
 
+	err = driver.SwitchFrame(nil)
+	if err != nil {
+		return err
+	}
+
+	submit, err := driver.FindElement(selenium.ByTagName, "button")
+	if err != nil {
+		return err
+	}
+	err = submit.Click()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
