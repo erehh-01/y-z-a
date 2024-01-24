@@ -6,14 +6,13 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/spf13/viper"
 )
 
 var (
-	linkFile string
-	ccFile   string
+	checkoutsFile string
+	ccFile        string
 )
 
 type Config struct {
@@ -89,28 +88,19 @@ func StartConfig() error {
 		}
 	}
 
-	dataPath := filepath.Join(pwd, "data")
-	if _, err := os.Stat(dataPath); os.IsNotExist(err) {
-		// Create the config folder
-		err = os.MkdirAll(dataPath, 0755) // Use 0755 for appropriate permissions
-		if err != nil {
-			return err
-		}
-	}
-
-	// Set links file path
-	linkFile = filepath.Join(dataPath, "links.txt")
-	// Ensure links file exists
-	if _, err := os.Stat(linkFile); os.IsNotExist(err) {
-		// Create a new file with default links
-		err = os.WriteFile(linkFile, nil, 0644)
+	// Set checkoutss file path
+	checkoutsFile = filepath.Join(configPath, "checkouts.json")
+	// Ensure checkoutss file exists
+	if _, err := os.Stat(checkoutsFile); os.IsNotExist(err) {
+		// Create a new file with default checkoutss
+		err = os.WriteFile(checkoutsFile, nil, 0644)
 		if err != nil {
 			return err
 		}
 	}
 
 	// Set cc file path
-	ccFile = filepath.Join(dataPath, "credit-cards.json")
+	ccFile = filepath.Join(configPath, "credit-cards.json")
 	// Ensure cc file exists
 	if _, err := os.Stat(ccFile); os.IsNotExist(err) {
 		// Create a new file with default cc
@@ -228,19 +218,22 @@ func createDefaultCCFile(CCFilePath string) error {
 	return os.WriteFile(CCFilePath, jsonData, 0644)
 }
 
-func LoadLinks() ([]string, error) {
-	if linkFile == "" {
-		return nil, errors.New("there is no links.txt file")
+func LoadCheckouts() ([]string, error) {
+	if checkoutsFile == "" {
+		return nil, errors.New("there is no checkouts.json file")
 	}
 
-	linksData, err := os.ReadFile(linkFile)
+	checkoutsData, err := os.ReadFile(checkoutsFile)
 	if err != nil {
-		return nil, errors.New("failed to read links.txt file")
+		return nil, errors.New("failed to read checkouts.json file")
 	}
 
-	links := strings.Split(string(linksData), "\n")
+	var checkouts []string
+	if err := json.Unmarshal(checkoutsData, &checkouts); err != nil {
+		return nil, errors.New("failed to unmarshal checkouts.json")
+	}
 
-	return links, nil
+	return checkouts, nil
 }
 
 func LoadCC() ([]CC, error) {

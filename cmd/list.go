@@ -29,7 +29,7 @@ var listCmd = &cobra.Command{
 		err = driver.ResizeWindow(window, 1920, 1080)
 		cobra.CheckErr(err)
 
-		links, err := utils.LoadLinks()
+		checkouts, err := utils.LoadCheckouts()
 		cobra.CheckErr(err)
 
 		ccs, err := utils.LoadCC()
@@ -38,7 +38,7 @@ var listCmd = &cobra.Command{
 		conf, err := utils.LoadConfig()
 		cobra.CheckErr(err)
 
-		for _, link := range links {
+		for _, link := range checkouts {
 			if !strings.Contains(link, "http") {
 				continue
 			}

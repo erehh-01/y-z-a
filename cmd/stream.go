@@ -33,13 +33,13 @@ var streamCmd = &cobra.Command{
 			cobra.CheckErr(errors.New("failed to start telegram client"))
 		}
 
-		links, err := utils.LoadLinks()
+		checkouts, err := utils.LoadCheckouts()
 		cobra.CheckErr(err)
 
 		go telegram.Stream(conf)
 
 		wg := sync.WaitGroup{}
-		for i, link := range links {
+		for i, link := range checkouts {
 			if i >= conf.Browser.MaxWindows {
 				break
 			}
@@ -70,8 +70,8 @@ var streamCmd = &cobra.Command{
 				for cc := range telegram.CCChannel {
 
 					lk := link
-					if rip <= len(links) {
-						lk = links[rip]
+					if rip <= len(checkouts) {
+						lk = checkouts[rip]
 						rip++
 					} else {
 						rip = 0

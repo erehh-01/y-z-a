@@ -25,14 +25,14 @@ var ta3hmCmd = &cobra.Command{
 		conf, err := utils.LoadConfig()
 		cobra.CheckErr(err)
 
-		links, err := utils.LoadLinks()
+		checkouts, err := utils.LoadCheckouts()
 		cobra.CheckErr(err)
 
 		ccs, err := utils.LoadCC()
 		cobra.CheckErr(err)
 
 		wg := sync.WaitGroup{}
-		for _, link := range links {
+		for _, link := range checkouts {
 			if !strings.Contains(link, "http") {
 				continue
 			}
