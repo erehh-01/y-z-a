@@ -399,10 +399,22 @@ func Fill(driver selenium.WebDriver, isTab bool, config Config, cc CC, link stri
 		return err
 	}
 
+	time.Sleep(150 * time.Millisecond)
 	submit, err := driver.FindElement(selenium.ByTagName, "button")
 	if err != nil {
 		return err
 	}
+
+	err = submit.Click()
+	if err != nil {
+		return err
+	}
+
+	err = submit.Click()
+	if err != nil {
+		return err
+	}
+
 	err = submit.Click()
 	if err != nil {
 		return err
