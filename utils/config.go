@@ -54,9 +54,12 @@ type CC struct {
 }
 
 type Telegram struct {
-	AppID    int32   `json:"appID"`
-	AppHash  string  `json:"appHash"`
-	Channels []int64 `json:"channels"`
+	AppID          int32   `json:"appID"`
+	AppHash        string  `json:"appHash"`
+	ShowChatID     bool    `json:"showChatID"`
+	ShowMesssageID bool    `json:"ShowMesssageID"`
+	ShowMesssage   bool    `json:"ShowMesssage"`
+	Channels       []int64 `json:"channels"`
 }
 
 func StartConfig() error {
@@ -178,8 +181,11 @@ func createDefaultConfigFile(configFilePath string) error {
 			LoadTime:     15,
 		},
 		Telegram: Telegram{
-			AppID:   0,
-			AppHash: "",
+			AppID:          0,
+			AppHash:        "",
+			ShowChatID:     false,
+			ShowMesssageID: false,
+			ShowMesssage:   false,
 			Channels: []int64{
 				-1001397199427,
 			},

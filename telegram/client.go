@@ -87,10 +87,18 @@ func Stream(conf utils.Config) {
 
 			switch content := message.Content.(type) {
 			case *client.MessageText:
-				fmt.Println("Message ID:", message.Id)
-				fmt.Println("Chat ID:", message.ChatId)
+				if conf.Telegram.ShowChatID {
+					fmt.Println("Chat ID:", message.ChatId)
+				}
+				if conf.Telegram.ShowMesssageID {
+					fmt.Println("Message ID:", message.Id)
+				}
+
 				if slices.Contains(conf.Telegram.Channels, message.ChatId) {
-					fmt.Println("Text:", content.Text.Text)
+					if conf.Telegram.ShowMesssage {
+						fmt.Println("Text:", content.Text.Text)
+					}
+
 					cc, err := utils.ParseCC(content.Text.Text)
 					if err != nil {
 						continue

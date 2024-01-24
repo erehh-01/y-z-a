@@ -410,15 +410,5 @@ func Fill(driver selenium.WebDriver, isTab bool, config Config, cc CC, link stri
 		return err
 	}
 
-	err = submit.Click()
-	if err != nil {
-		return err
-	}
-
-	err = submit.Click()
-	if err != nil {
-		return err
-	}
-
 	return nil
 }

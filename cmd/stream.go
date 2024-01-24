@@ -70,7 +70,7 @@ var streamCmd = &cobra.Command{
 				for cc := range telegram.CCChannel {
 
 					lk := link
-					if rip <= len(checkouts) {
+					if rip < len(checkouts) {
 						lk = checkouts[rip]
 						rip++
 					} else {
