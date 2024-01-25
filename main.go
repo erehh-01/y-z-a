@@ -5,6 +5,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -15,6 +17,15 @@ import (
 )
 
 func main() {
+	resp, err := http.Get("https://www.youtube.com/")
+	if err != nil {
+		log.Fatalln("Failed to connect the Internet.")
+	}
+
+	if resp.StatusCode != 200 {
+		log.Fatalln("Not Authorized to use the app.")
+	}
+
 	fmt.Printf("\u001b[38;5;125m\u001b[48;5;0m%s\u001b[0m\n", fmt.Sprintln(`
                                                                 
     ooooo  oooo           ooooooooooo                o          

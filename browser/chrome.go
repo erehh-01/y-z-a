@@ -61,7 +61,7 @@ func Chrome(headless bool) (selenium.WebDriver, error) {
 			"--disable-save-password-bubble",
 			"--disable-domain-reliability",
 			"--no-pings",
-			"--enable-chrome-browser-cloud-management",
+			"--disable-chrome-browser-cloud-management",
 			"--disable-default-apps",
 			"--disable-hang-monitor",
 			"--disable-popup-blocking",
