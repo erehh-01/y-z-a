@@ -11,6 +11,7 @@ import (
 )
 
 var (
+	ConfigPath    string
 	checkoutsFile string
 	ccFile        string
 )
@@ -70,17 +71,17 @@ func StartConfig() error {
 	}
 
 	// Ensure config folder exists
-	configPath := filepath.Join(pwd, "config")
-	if _, err := os.Stat(configPath); os.IsNotExist(err) {
+	ConfigPath = filepath.Join(pwd, "config")
+	if _, err := os.Stat(ConfigPath); os.IsNotExist(err) {
 		// Create the config folder
-		err = os.MkdirAll(configPath, 0755) // Use 0755 for appropriate permissions
+		err = os.MkdirAll(ConfigPath, 0755) // Use 0755 for appropriate permissions
 		if err != nil {
 			return err
 		}
 	}
 
 	// Set config file path
-	configFile := filepath.Join(configPath, "y-z-a.json")
+	configFile := filepath.Join(ConfigPath, "y-z-a.json")
 	// Ensure config file exists
 	if _, err := os.Stat(configFile); os.IsNotExist(err) {
 		fmt.Println("Config file not found, created:", configFile)
@@ -92,7 +93,7 @@ func StartConfig() error {
 	}
 
 	// Set checkoutss file path
-	checkoutsFile = filepath.Join(configPath, "checkouts.json")
+	checkoutsFile = filepath.Join(ConfigPath, "checkouts.json")
 	// Ensure checkoutss file exists
 	if _, err := os.Stat(checkoutsFile); os.IsNotExist(err) {
 		// Create a new file with default checkoutss
@@ -103,7 +104,7 @@ func StartConfig() error {
 	}
 
 	// Set cc file path
-	ccFile = filepath.Join(configPath, "credit-cards.json")
+	ccFile = filepath.Join(ConfigPath, "credit-cards.json")
 	// Ensure cc file exists
 	if _, err := os.Stat(ccFile); os.IsNotExist(err) {
 		// Create a new file with default cc
@@ -124,7 +125,7 @@ func StartConfig() error {
 	}
 
 	// Load configuration
-	viper.AddConfigPath(filepath.Clean(configPath))
+	viper.AddConfigPath(filepath.Clean(ConfigPath))
 	viper.SetConfigType("json")
 	viper.SetConfigName("y-z-a")
 
@@ -138,12 +139,12 @@ func StartConfig() error {
 
 func LoadConfig() (Config, error) {
 	config := Config{}
-	configPath := viper.ConfigFileUsed()
-	if configPath == "" {
+	ConfigPath := viper.ConfigFileUsed()
+	if ConfigPath == "" {
 		return config, fmt.Errorf("there is no config file")
 	}
 
-	configBytes, err := os.ReadFile(configPath)
+	configBytes, err := os.ReadFile(ConfigPath)
 	if err != nil {
 		return config, fmt.Errorf("config file is empty")
 	}
