@@ -382,16 +382,16 @@ func Stream(driver selenium.WebDriver, config Config, cc CC) error {
 			return err
 		}
 
-		time.Sleep(150 * time.Millisecond)
-		submit, err := driver.FindElement(selenium.ByTagName, "button")
-		if err != nil {
-			return err
-		}
-
-		err = submit.Click()
-		if err != nil {
-			return err
-		}
+		//time.Sleep(150 * time.Millisecond)
+		//submit, err := driver.FindElement(selenium.ByTagName, "button")
+		//if err != nil {
+		//	return err
+		//}
+		//
+		//err = submit.Click()
+		//if err != nil {
+		//	return err
+		//}
 	}
 	return nil
 }
